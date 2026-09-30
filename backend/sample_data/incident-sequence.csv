@@ -1,0 +1,9 @@
+timestamp,event_type,source_ip,destination_ip,user,hostname,description,process,filename,domain,url,session_id,sha256
+2026-09-30T10:01:00Z,failed_login,198.51.100.24,10.20.4.14,j.morgan,FIN-WS-014,Failed sign-in to targeted account,,,,,,
+2026-09-30T10:02:00Z,failed_login,198.51.100.24,10.20.4.14,j.morgan,FIN-WS-014,Failed sign-in to targeted account,,,,,,
+2026-09-30T10:03:00Z,failed_login,198.51.100.24,10.20.4.14,j.morgan,FIN-WS-014,Failed sign-in to targeted account,,,,,,
+2026-09-30T10:04:00Z,successful_login,198.51.100.24,10.20.4.14,j.morgan,FIN-WS-014,Successful sign-in after repeated failures,,,,,,
+2026-09-30T10:06:00Z,powershell,10.20.4.14,,j.morgan,FIN-WS-014,Encoded PowerShell command observed; command content redacted,powershell.exe,,,,session-77,
+2026-09-30T10:08:00Z,file_download,10.20.4.14,203.0.113.44,j.morgan,FIN-WS-014,Executable downloaded after suspicious script activity,powershell.exe,update-check.exe,cdn-sync.example,https://cdn-sync.example/update-check.exe,session-77,
+2026-09-30T10:12:00Z,c2_traffic,10.20.4.14,203.0.113.44,j.morgan,FIN-WS-014,Periodic HTTPS beacon to untrusted external host,update-check.exe,,cdn-sync.example,,session-77,
+2026-09-30T10:18:00Z,data_transfer,10.20.4.14,203.0.113.44,j.morgan,FIN-WS-014,Large outbound transfer observed; 860 MB,update-check.exe,q3-finance.zip,,,,

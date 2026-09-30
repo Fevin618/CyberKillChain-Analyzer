@@ -1,0 +1,70 @@
+STAGES = [
+    "Reconnaissance", "Weaponization", "Delivery", "Exploitation",
+    "Installation", "Command & Control", "Actions on Objectives",
+]
+
+TECHNIQUES = {
+    "T1566.001": ("Spearphishing Attachment", "Initial Access", "Phishing email with a malicious attachment", 65),
+    "T1566.002": ("Spearphishing Link", "Initial Access", "Phishing email containing a malicious link", 60),
+    "T1059.001": ("PowerShell", "Execution", "Command and scripting interpreter: PowerShell", 75),
+    "T1059.003": ("Windows Command Shell", "Execution", "Command and scripting interpreter: Windows shell", 65),
+    "T1053": ("Scheduled Task/Job", "Persistence", "Scheduled task or job used to execute code", 70),
+    "T1547.001": ("Registry Run Keys / Startup Folder", "Persistence", "Autostart execution through a registry run key or startup folder", 75),
+    "T1003": ("OS Credential Dumping", "Credential Access", "Credential material targeted on an operating system", 90),
+    "T1078": ("Valid Accounts", "Initial Access", "Legitimate credentials used for suspicious access", 75),
+    "T1021": ("Remote Services", "Lateral Movement", "Remote service used to access another system", 70),
+    "T1047": ("Windows Management Instrumentation", "Execution", "WMI used to execute or manage processes", 65),
+    "T1055": ("Process Injection", "Defense Evasion", "Code injected into another process", 85),
+    "T1105": ("Ingress Tool Transfer", "Command and Control", "Tool or payload transferred into an environment", 75),
+    "T1071.001": ("Web Protocols", "Command and Control", "Command and control over web protocols", 75),
+    "T1071.004": ("DNS", "Command and Control", "Command and control over DNS", 75),
+    "T1041": ("Exfiltration Over C2 Channel", "Exfiltration", "Data exfiltrated over a command and control channel", 90),
+    "T1560": ("Archive Collected Data", "Collection", "Collected data compressed or archived", 65),
+    "T1087": ("Account Discovery", "Discovery", "Local or domain account discovery", 35),
+    "T1018": ("Remote System Discovery", "Discovery", "Remote systems enumerated", 40),
+    "T1046": ("Network Service Scanning", "Discovery", "Network services scanned for discovery", 50),
+    "T1083": ("File and Directory Discovery", "Discovery", "Files or directories enumerated", 30),
+    "T1068": ("Exploitation for Privilege Escalation", "Privilege Escalation", "Vulnerability or exploit behavior used to elevate privileges", 85),
+    "T1562.001": ("Disable or Modify Tools", "Defense Evasion", "Security tools or controls disabled or modified", 85),
+}
+
+EVENT_MAP = {
+    "phishing_attachment": ("Delivery", "T1566.001", 0.91),
+    "phishing_link": ("Delivery", "T1566.002", 0.88),
+    "failed_login": ("Reconnaissance", None, 0.45),
+    "successful_login": ("Exploitation", "T1078", 0.78),
+    "powershell": ("Exploitation", "T1059.001", 0.70),
+    "command_shell": ("Exploitation", "T1059.003", 0.66),
+    "file_download": ("Installation", "T1105", 0.72),
+    "malware_execution": ("Installation", "T1105", 0.80),
+    "persistence": ("Installation", "T1547.001", 0.82),
+    "scheduled_task": ("Installation", "T1053", 0.78),
+    "credential_dumping": ("Exploitation", "T1003", 0.88),
+    "privilege_escalation": ("Exploitation", "T1068", 0.82),
+    "security_tool_disabled": ("Exploitation", "T1562.001", 0.88),
+    "remote_access": ("Exploitation", "T1021", 0.70),
+    "wmi_execution": ("Exploitation", "T1047", 0.68),
+    "process_injection": ("Exploitation", "T1055", 0.82),
+    "dns_request": ("Command & Control", "T1071.004", 0.68),
+    "c2_traffic": ("Command & Control", "T1071.001", 0.84),
+    "data_staging": ("Actions on Objectives", "T1560", 0.70),
+    "data_transfer": ("Actions on Objectives", "T1041", 0.76),
+    "network_scan": ("Reconnaissance", "T1046", 0.68),
+    "remote_system_discovery": ("Reconnaissance", "T1018", 0.60),
+    "account_discovery": ("Reconnaissance", "T1087", 0.58),
+    "file_discovery": ("Reconnaissance", "T1083", 0.52),
+    "file_modification": ("Installation", "T1547.001", 0.55),
+    "process_creation": ("Exploitation", "T1059.003", 0.48),
+    "benign": ("", None, 0.10),
+}
+
+INVESTIGATION = [
+    "Validate the affected account and host with the system owner.",
+    "Review process ancestry, command-line telemetry, and authentication logs around the timeline.",
+    "Search endpoint and network telemetry for the listed indicators and related activity.",
+]
+CONTAINMENT = [
+    "Isolate affected endpoints if active malicious execution or command and control is confirmed.",
+    "Disable or restrict suspected compromised accounts and revoke active sessions.",
+    "Block validated malicious network indicators and preserve relevant evidence.",
+]
